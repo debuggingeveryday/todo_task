@@ -3,6 +3,7 @@ export interface User {
     name: string;
     email: string;
     email_verified_at?: string;
+    user_type: 'ADMIN_USER' | 'STAFF_USER';
 }
 
 export type PageProps<

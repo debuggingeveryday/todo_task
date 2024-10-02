@@ -2,16 +2,17 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Todo;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class TodoCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +22,12 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
+        $statuses = join(",", Todo::STATUSES);
+
         return [
-            //
+            'todo' => ['required', 'string', 'max:100'],
+            'description' => ['required', 'string', 'max:100'],
+            'status' => ['required', "in:$statuses"]
         ];
     }
 }

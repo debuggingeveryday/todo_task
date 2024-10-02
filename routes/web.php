@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Auth\Middleware\Authorize;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -10,8 +12,9 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', fn () => Inertia::render('Dashboard'))->name('dashboard');
-    Route::resource('/user-management', UserController::class);
+    Route::get('/dashboard', fn() => Inertia::render('Dashboard'))->name('dashboard');
+    Route::resource('/user-management', UserController::class)->middleware('is_admin');
+    Route::resource('/todo-task', TodoController::class)->middleware('is_staff');
 });
 
 Route::middleware('auth')->group(function () {
@@ -20,4 +23,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

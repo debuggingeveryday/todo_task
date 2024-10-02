@@ -14,8 +14,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    public const ADMIN_USER = 'admin_user';
-    public const STAFF_USER = 'staff_user';
+    public const ADMIN_USER = 'ADMIN_USER';
+    public const STAFF_USER = 'STAFF_USER';
 
     /**
      * The attributes that are mass assignable.
@@ -58,5 +58,4 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserDetails::class);
     }
-
 }

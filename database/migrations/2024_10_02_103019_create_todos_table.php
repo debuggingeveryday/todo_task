@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('todo');
             $table->string('description');
             $table->string('status');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
